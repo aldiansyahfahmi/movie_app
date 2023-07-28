@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/features/home/presentation/bloc/popular_movie_cubit/popular_movie_cubit.dart';
+import 'package:movie_app/features/home/presentation/bloc/now_playing_movie_cubit/now_playing_movie_cubit.dart';
+import 'package:movie_app/features/home/presentation/bloc/top_rated_movie_cubit/top_rated_movie_cubit.dart';
+import 'package:movie_app/features/home/presentation/bloc/upcoming_movie_cubit/upcoming_movie_cubit.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:page_transition/page_transition.dart';
 import '../features/home/presentation/ui/home_screen.dart';
@@ -32,8 +34,19 @@ class MyApp extends StatelessWidget {
               child: child!,
             );
           },
-          home: BlocProvider(
-            create: (context) => PopularMovieCubit()..getPopularMovie(),
+          home: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => TopRatedMovieCubit()..getTopRatedMovie(),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    NowPlayingMovieCubit()..getNowPlayingMovie(),
+              ),
+              BlocProvider(
+                create: (context) => UpcomingMovieCubit()..getUpcomingMovie(),
+              ),
+            ],
             child: const HomeScreen(),
           ),
           navigatorKey: NavigationHelperImpl.navigatorKey,
@@ -41,8 +54,21 @@ class MyApp extends StatelessWidget {
             switch (settings.name) {
               case AppRoutes.home:
                 return PageTransition(
-                  child: BlocProvider(
-                    create: (context) => PopularMovieCubit()..getPopularMovie(),
+                  child: MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) =>
+                            TopRatedMovieCubit()..getTopRatedMovie(),
+                      ),
+                      BlocProvider(
+                        create: (context) =>
+                            NowPlayingMovieCubit()..getNowPlayingMovie(),
+                      ),
+                      BlocProvider(
+                        create: (context) =>
+                            UpcomingMovieCubit()..getUpcomingMovie(),
+                      ),
+                    ],
                     child: const HomeScreen(),
                   ),
                   type: PageTransitionType.rightToLeft,

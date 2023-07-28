@@ -5,9 +5,9 @@ import 'package:movie_app/features/home/domain/repository/movie_repository.dart'
 import 'package:movie_app/shared_libraries/utils/error/failure_response.dart';
 import 'package:movie_app/shared_libraries/utils/usecase/usecase.dart';
 
-class GetPopularMovieUseCase extends UseCase<List<MovieDataEntity>, NoParams> {
+class GetTopRatedMovieUseCase extends UseCase<List<MovieDataEntity>, NoParams> {
   final MovieRepository movieRepository = MovieRepositoryImpl();
   @override
   Future<Either<FailureResponse, List<MovieDataEntity>>> call(params) async =>
-      await movieRepository.getPopularMovie();
+      await movieRepository.getTopRatedMovie();
 }

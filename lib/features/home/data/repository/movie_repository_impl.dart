@@ -14,9 +14,45 @@ class MovieRepositoryImpl implements MovieRepository {
 
   @override
   Future<Either<FailureResponse, List<MovieDataEntity>>>
-      getPopularMovie() async {
+      getTopRatedMovie() async {
     try {
-      final response = await movieRemoteDataSource.getPopularMovie();
+      final response = await movieRemoteDataSource.getTopRatedMovie();
+      return Right(movieMapper.mapMovieDataDtoToEntity(response.results!));
+    } on DioException catch (error) {
+      return Left(
+        FailureResponse(
+          errorMessage:
+              error.response?.data[AppConstants.errorKey.message]?.toString() ??
+                  error.response.toString(),
+          statusCode: error.response?.statusCode ?? 500,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<FailureResponse, List<MovieDataEntity>>>
+      getNowPlayingMovie() async {
+    try {
+      final response = await movieRemoteDataSource.getNowPlayingMovie();
+      return Right(movieMapper.mapMovieDataDtoToEntity(response.results!));
+    } on DioException catch (error) {
+      return Left(
+        FailureResponse(
+          errorMessage:
+              error.response?.data[AppConstants.errorKey.message]?.toString() ??
+                  error.response.toString(),
+          statusCode: error.response?.statusCode ?? 500,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<FailureResponse, List<MovieDataEntity>>>
+      getUpcomingMovie() async {
+    try {
+      final response = await movieRemoteDataSource.getUpcomingMovie();
       return Right(movieMapper.mapMovieDataDtoToEntity(response.results!));
     } on DioException catch (error) {
       return Left(

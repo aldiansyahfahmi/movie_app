@@ -29,8 +29,12 @@ class AppApi {
   String get key => '9d1d0ba6ed07c430140ed34dd0684540';
   String get baseUrlDevelopment => 'https://api.themoviedb.org/3/';
   String get baseUrlProduction => 'https://api.themoviedb.org/3/';
+  String get baseUrlImage =>
+      'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
 
-  String get popularMovie => 'movie/popular';
+  String get topRatedMovie => 'movie/top_rated';
+  String get nowPlayingMovie => 'movie/now_playing';
+  String get upcomingMovie => 'movie/upcoming';
 }
 
 class ErrorKey {
