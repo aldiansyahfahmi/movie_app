@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/features/home/domain/entities/response/movie_response_entity.dart';
+import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dart';
 import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:movie_app/shared_libraries/utils/resources/assets.gen.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
@@ -26,7 +27,16 @@ class MovieCard extends StatelessWidget {
             CachedNetworkImage(
               fit: BoxFit.cover,
               imageUrl: AppConstants.appApi.baseUrlImage + movie.posterPath,
-              placeholder: (context, url) => const CircularProgressIndicator(),
+              placeholder: (context, url) => ShimmerLoading(
+                child: Container(
+                  height: 180.h,
+                  width: 125.w,
+                  decoration: BoxDecoration(
+                    color: ColorName.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             SizedBox(

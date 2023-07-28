@@ -9,6 +9,7 @@ import 'package:movie_app/features/home/presentation/bloc/top_rated_movie_cubit/
 import 'package:movie_app/features/home/presentation/bloc/upcoming_movie_cubit/upcoming_movie_cubit.dart';
 import 'package:movie_app/features/home/presentation/bloc/upcoming_movie_cubit/upcoming_movie_state.dart';
 import 'package:movie_app/shared_libraries/component/card/movie_card.dart';
+import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dart';
 import 'package:movie_app/shared_libraries/utils/resources/assets.gen.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:movie_app/shared_libraries/utils/state/view_data_state.dart';
@@ -55,9 +56,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context, state) {
                   final status = state.topRatedMovieState.status;
                   if (status.isLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return loading();
                   } else if (status.isHasData) {
                     final data = state.topRatedMovieState.data!;
                     return movie(data);
@@ -90,9 +89,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context, state) {
                   final status = state.nowPlayingMovieState.status;
                   if (status.isLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return loading();
                   } else if (status.isHasData) {
                     final data = state.nowPlayingMovieState.data!;
                     return movie(data);
@@ -125,9 +122,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context, state) {
                   final status = state.upcomingMovieState.status;
                   if (status.isLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return loading();
                   } else if (status.isHasData) {
                     final data = state.upcomingMovieState.data!;
                     return movie(data);
@@ -145,6 +140,68 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget loading() {
+    return SizedBox(
+      height: 250.h,
+      child: ListView.builder(
+        itemCount: 5,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.only(right: index == 4 ? 0 : 16),
+            child: ShimmerLoading(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 180.h,
+                    width: 125.w,
+                    decoration: BoxDecoration(
+                      color: ColorName.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Container(
+                    width: 125.w,
+                    height: 8,
+                    color: ColorName.white,
+                  ),
+                  SizedBox(
+                    height: 4.h,
+                  ),
+                  Container(
+                    width: 80.w,
+                    height: 8,
+                    color: ColorName.white,
+                  ),
+                  SizedBox(
+                    height: 4.h,
+                  ),
+                  Row(
+                    children: [
+                      Assets.images.icons.star.svg(),
+                      SizedBox(
+                        width: 8.w,
+                      ),
+                      Container(
+                        width: 10.w,
+                        height: 8,
+                        color: ColorName.white,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
