@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 import 'api_interceptors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,9 @@ class DioHandler {
   Dio _getDio() {
     BaseOptions options = BaseOptions(
       baseUrl: apiBaseUrl,
+      queryParameters: {
+        'api_key': AppConstants.appApi.key,
+      },
       connectTimeout: const Duration(seconds: 50),
       receiveTimeout: const Duration(seconds: 30),
     );
@@ -25,6 +29,3 @@ class DioHandler {
     return dio;
   }
 }
-
-
-

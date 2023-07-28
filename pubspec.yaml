@@ -57,7 +57,7 @@ dev_dependencies:
 
 # Generate shared resource image
 flutter_gen:
-  output: lib/shared_libraries/resources
+  output: lib/shared_libraries/utils/resources
   assets:
     package_parameter_enabled: true
 

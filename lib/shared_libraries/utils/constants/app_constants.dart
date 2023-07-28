@@ -26,10 +26,11 @@ class CachedKey {
 
 class AppApi {
   const AppApi();
-  String get baseUrlDevelopment => 'https://';
-  String get baseUrlProduction => 'https://';
+  String get key => '9d1d0ba6ed07c430140ed34dd0684540';
+  String get baseUrlDevelopment => 'https://api.themoviedb.org/3/';
+  String get baseUrlProduction => 'https://api.themoviedb.org/3/';
 
-  String get login => 'login';
+  String get popularMovie => 'movie/popular';
 }
 
 class ErrorKey {
