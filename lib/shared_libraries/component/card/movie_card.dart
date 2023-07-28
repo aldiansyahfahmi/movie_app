@@ -18,19 +18,22 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 125.w,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CachedNetworkImage(
+      height: 260.h,
+      width: 125,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: CachedNetworkImage(
+              height: 170.h,
+              width: 125,
               fit: BoxFit.cover,
               imageUrl: AppConstants.appApi.baseUrlImage + movie.posterPath,
               placeholder: (context, url) => ShimmerLoading(
                 child: Container(
-                  height: 180.h,
-                  width: 125.w,
+                  height: 170.h,
+                  width: 125,
                   decoration: BoxDecoration(
                     color: ColorName.white,
                     borderRadius: BorderRadius.circular(8),
@@ -39,41 +42,40 @@ class MovieCard extends StatelessWidget {
               ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
-            SizedBox(
-              height: 8.h,
+          ),
+          SizedBox(
+            height: 8.h,
+          ),
+          Text(
+            movie.originalTitle,
+            style: TextStyle(
+              color: ColorName.white,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
             ),
-            Text(
-              movie.originalTitle,
-              style: TextStyle(
-                color: ColorName.white,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          SizedBox(
+            height: 4.h,
+          ),
+          Row(
+            children: [
+              Assets.images.icons.star.svg(),
+              const SizedBox(
+                width: 8,
               ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(
-              height: 4.h,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Assets.images.icons.star.svg(),
-                SizedBox(
-                  width: 8.w,
+              Text(
+                movie.voteAverage.toString(),
+                style: TextStyle(
+                  color: ColorName.white,
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
                 ),
-                Text(
-                  movie.voteAverage.toString(),
-                  style: TextStyle(
-                    color: ColorName.white,
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
