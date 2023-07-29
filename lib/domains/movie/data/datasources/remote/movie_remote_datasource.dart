@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:movie_app/di/injections.dart';
+import 'package:movie_app/domains/movie/data/models/response/credits_response_dto.dart';
 import 'package:movie_app/domains/movie/data/models/response/movie_response_dto.dart';
 import 'package:movie_app/shared_libraries/core/network/models/api_response.dart';
 import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
@@ -9,6 +10,7 @@ abstract class MovieRemoteDataSource {
   Future<ApiResponse<List<MovieDataDto>>> getNowPlayingMovie();
   Future<ApiResponse<List<MovieDataDto>>> getUpcomingMovie();
   Future<MovieDataDto> getMovieDetails({required int id});
+  Future<CreditsDto> getCredits({required int id});
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
@@ -70,6 +72,17 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     try {
       final response = await dio.get('${AppConstants.appApi.movie}/$id');
       return MovieDataDto.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<CreditsDto> getCredits({required int id}) async {
+    try {
+      final response = await dio.get(
+          '${AppConstants.appApi.movie}/$id/${AppConstants.appApi.credits}');
+      return CreditsDto.fromJson(response.data);
     } catch (e) {
       rethrow;
     }

@@ -1,4 +1,4 @@
-import 'package:movie_app/domains/movie/domain/entities/response/genere_response_entity.dart';
+import 'package:movie_app/domains/movie/domain/entities/response/genre_response_entity.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/production_company_response_entity.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/production_country_response_entity.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/spoken_language_response_entity.dart';

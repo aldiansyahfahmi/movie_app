@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/presentation/movie_details/bloc/credits_cubit/credits_cubit.dart';
 import 'package:movie_app/presentation/movie_details/bloc/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movie_app/presentation/movie/bloc/now_playing_movie_cubit/now_playing_movie_cubit.dart';
 import 'package:movie_app/presentation/movie/bloc/top_rated_movie_cubit/top_rated_movie_cubit.dart';
@@ -79,8 +80,15 @@ class MyApp extends StatelessWidget {
                 );
               case AppRoutes.movieDetails:
                 return PageTransition(
-                  child: BlocProvider(
-                    create: (context) => MovieDetailsCubit(),
+                  child: MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => MovieDetailsCubit(),
+                      ),
+                      BlocProvider(
+                        create: (context) => CreditsCubit(),
+                      ),
+                    ],
                     child: MovieDetailsScreen(
                       arguments: arguments as MovieDetailsArgument,
                     ),

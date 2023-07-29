@@ -71,7 +71,7 @@ class Poster extends StatelessWidget {
                         width: 8,
                       ),
                       Text(
-                        movie.voteAverage.toString(),
+                        movie.voteAverage.toStringAsFixed(1),
                         style: TextStyle(
                           color: ColorName.white,
                           fontSize: 12.sp,
@@ -100,14 +100,31 @@ class Poster extends StatelessWidget {
                   SizedBox(
                     height: 8.h,
                   ),
-                  Text(
-                    movie.releaseDate.toDateFormat(),
-                    style: TextStyle(
-                      color: ColorName.white,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  )
+                  Row(
+                    children: [
+                      Text(
+                        movie.runtime.toTimeFormat(),
+                        style: TextStyle(
+                          color: ColorName.white,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                      Text(
+                        ' • ',
+                        style: TextStyle(
+                          color: ColorName.white,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                      Text(
+                        movie.releaseDate.toDateFormat(),
+                        style: TextStyle(
+                          color: ColorName.white,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
