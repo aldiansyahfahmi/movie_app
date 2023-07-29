@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/presentation/movie/bloc/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movie_app/presentation/movie/bloc/movie_details_cubit/movie_details_state.dart';
 import 'package:movie_app/presentation/movie/ui/component/movie_details/backdrop.dart';
+import 'package:movie_app/presentation/movie/ui/component/movie_details/genres.dart';
 import 'package:movie_app/presentation/movie/ui/component/movie_details/poster.dart';
+import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:movie_app/shared_libraries/utils/state/view_data_state.dart';
@@ -35,19 +37,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     return Scaffold(
       body: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
         builder: (context, state) {
-          final status = state.movieDetailsState.status;
-          if (status.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (status.isHasData) {
-            final movie = state.movieDetailsState.data!;
-            return SingleChildScrollView(
+          return state.movieDetailsState.observe(
+            onLoading: const Center(child: CircularProgressIndicator()),
+            onError: (error) => ErrorView(
+              error: error!,
+              onTap: () => getMovieDetails(),
+            ),
+            (movie) => SingleChildScrollView(
               child: Column(
                 children: [
                   Stack(
                     children: [
-                      Backdrop(movie: movie),
+                      Backdrop(movie: movie!),
                       GestureDetector(
                         onTap: () => Navigator.pop(context),
                         child: Container(
@@ -74,6 +75,21 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Genres(movie: movie),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        Text(
+                          'Storyline',
+                          style: TextStyle(
+                            color: ColorName.white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
                         Text(
                           movie.overview,
                           style: TextStyle(
@@ -87,16 +103,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   ),
                 ],
               ),
-            );
-          } else if (status.isError) {
-            return Center(
-              child: Text(
-                state.movieDetailsState.message,
-              ),
-            );
-          } else {
-            return const SizedBox();
-          }
+            ),
+          );
         },
       ),
     );

@@ -41,7 +41,7 @@ class AppApi {
 class ErrorKey {
   const ErrorKey();
 
-  String get message => "message";
+  String get message => "status_message";
 }
 
 class ErrorMessage {

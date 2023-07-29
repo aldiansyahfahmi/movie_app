@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/movie_response_entity.dart';
 import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dart';
 import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
+import 'package:movie_app/shared_libraries/utils/extensions/date_extension.dart';
 import 'package:movie_app/shared_libraries/utils/extensions/number_extension.dart';
 import 'package:movie_app/shared_libraries/utils/resources/assets.gen.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
@@ -65,7 +66,7 @@ class Poster extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Assets.images.icons.star.svg(),
+                      Assets.images.icons.star.svg(width: 14, height: 14),
                       const SizedBox(
                         width: 8,
                       ),
@@ -96,6 +97,17 @@ class Poster extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Text(
+                    movie.releaseDate.toDateFormat(),
+                    style: TextStyle(
+                      color: ColorName.white,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
                 ],
               ),
             ),

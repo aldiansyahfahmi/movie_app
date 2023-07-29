@@ -22,7 +22,6 @@ class MovieCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        height: 260.h,
         width: 125,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

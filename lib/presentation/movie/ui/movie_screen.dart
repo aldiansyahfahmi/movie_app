@@ -10,6 +10,7 @@ import 'package:movie_app/presentation/movie/bloc/upcoming_movie_cubit/upcoming_
 import 'package:movie_app/presentation/movie/ui/component/movie/list_movie.dart';
 import 'package:movie_app/presentation/movie/ui/component/movie/loading.dart';
 import 'package:movie_app/presentation/movie/ui/component/movie/search.dart';
+import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:movie_app/shared_libraries/utils/state/view_data_state.dart';
 
@@ -53,23 +54,15 @@ class MovieScreen extends StatelessWidget {
               ),
               BlocBuilder<TopRatedMovieCubit, TopRatedMovieState>(
                 builder: (context, state) {
-                  final status = state.topRatedMovieState.status;
-                  if (status.isLoading) {
-                    return const Loading();
-                  } else if (status.isHasData) {
-                    final data = state.topRatedMovieState.data!;
-                    return ListMovie(
-                      data: data,
-                    );
-                  } else if (status.isError) {
-                    return Center(
-                      child: Text(
-                        state.topRatedMovieState.message,
-                      ),
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
+                  return state.topRatedMovieState.observe(
+                    onLoading: const Loading(),
+                    onError: (error) => ErrorView(
+                      error: error!,
+                      onTap: () =>
+                          context.read<TopRatedMovieCubit>().getTopRatedMovie(),
+                    ),
+                    (data) => ListMovie(data: data!),
+                  );
                 },
               ),
               SizedBox(
@@ -88,23 +81,16 @@ class MovieScreen extends StatelessWidget {
               ),
               BlocBuilder<NowPlayingMovieCubit, NowPlayingMovieState>(
                 builder: (context, state) {
-                  final status = state.nowPlayingMovieState.status;
-                  if (status.isLoading) {
-                    return const Loading();
-                  } else if (status.isHasData) {
-                    final data = state.nowPlayingMovieState.data!;
-                    return ListMovie(
-                      data: data,
-                    );
-                  } else if (status.isError) {
-                    return Center(
-                      child: Text(
-                        state.nowPlayingMovieState.message,
-                      ),
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
+                  return state.nowPlayingMovieState.observe(
+                    onLoading: const Loading(),
+                    onError: (error) => ErrorView(
+                      error: error!,
+                      onTap: () => context
+                          .read<NowPlayingMovieCubit>()
+                          .getNowPlayingMovie(),
+                    ),
+                    (data) => ListMovie(data: data!),
+                  );
                 },
               ),
               SizedBox(
@@ -123,23 +109,15 @@ class MovieScreen extends StatelessWidget {
               ),
               BlocBuilder<UpcomingMovieCubit, UpcomingMovieState>(
                 builder: (context, state) {
-                  final status = state.upcomingMovieState.status;
-                  if (status.isLoading) {
-                    return const Loading();
-                  } else if (status.isHasData) {
-                    final data = state.upcomingMovieState.data!;
-                    return ListMovie(
-                      data: data,
-                    );
-                  } else if (status.isError) {
-                    return Center(
-                      child: Text(
-                        state.upcomingMovieState.message,
-                      ),
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
+                  return state.upcomingMovieState.observe(
+                    onLoading: const Loading(),
+                    onError: (error) => ErrorView(
+                      error: error!,
+                      onTap: () =>
+                          context.read<UpcomingMovieCubit>().getUpcomingMovie(),
+                    ),
+                    (data) => ListMovie(data: data!),
+                  );
                 },
               ),
             ],
