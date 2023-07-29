@@ -6,12 +6,12 @@ import 'package:movie_app/presentation/movie_details/bloc/credits_cubit/credits_
 import 'package:movie_app/presentation/movie_details/bloc/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movie_app/presentation/movie_details/bloc/movie_details_cubit/movie_details_state.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/backdrop.dart';
-import 'package:movie_app/presentation/movie_details/ui/component/crew.dart';
+import 'package:movie_app/presentation/movie_details/ui/component/credits.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/genres.dart';
-import 'package:movie_app/presentation/movie_details/ui/component/cast.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/loading/credit_loading.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/loading/detail_loading.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/poster.dart';
+import 'package:movie_app/shared_libraries/component/button/custom_back_button.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
@@ -118,15 +118,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                         (data) => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Cast(
-                              data: data!,
-                            ),
+                            Credits(creditName: 'Cast', data: data!.cast),
                             SizedBox(
                               height: 16.h,
                             ),
-                            Crew(
-                              data: data,
-                            ),
+                            Credits(creditName: 'Crew', data: data.crew),
                           ],
                         ),
                       );
@@ -136,22 +132,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 45,
-              ),
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: ColorName.white.withOpacity(0.20),
-              ),
-              child: const Icon(
-                Icons.arrow_back,
-                color: ColorName.white,
-              ),
+          const SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: CustomBackButton(),
             ),
           ),
         ],

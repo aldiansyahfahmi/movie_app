@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/presentation/credits/ui/credits_screen.dart';
 import 'package:movie_app/presentation/movie_details/bloc/credits_cubit/credits_cubit.dart';
 import 'package:movie_app/presentation/movie_details/bloc/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movie_app/presentation/movie/bloc/now_playing_movie_cubit/now_playing_movie_cubit.dart';
@@ -8,6 +9,7 @@ import 'package:movie_app/presentation/movie/bloc/top_rated_movie_cubit/top_rate
 import 'package:movie_app/presentation/movie/bloc/upcoming_movie_cubit/upcoming_movie_cubit.dart';
 import 'package:movie_app/presentation/movie_details/ui/movie_details_screen.dart';
 import 'package:movie_app/presentation/movie/ui/movie_screen.dart';
+import 'package:movie_app/shared_libraries/utils/navigation/arguments/credit_argument.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -30,6 +32,7 @@ class MyApp extends StatelessWidget {
           title: AppConstants.app.appName,
           debugShowCheckedModeBanner: Config.isDebug,
           theme: ThemeData(
+            brightness: Brightness.dark,
             scaffoldBackgroundColor: ColorName.black,
           ),
           builder: (context, child) {
@@ -92,6 +95,13 @@ class MyApp extends StatelessWidget {
                     child: MovieDetailsScreen(
                       arguments: arguments as MovieDetailsArgument,
                     ),
+                  ),
+                  type: PageTransitionType.rightToLeft,
+                );
+              case AppRoutes.credits:
+                return PageTransition(
+                  child: CreditScreen(
+                    argument: arguments as CreditArgument,
                   ),
                   type: PageTransitionType.rightToLeft,
                 );

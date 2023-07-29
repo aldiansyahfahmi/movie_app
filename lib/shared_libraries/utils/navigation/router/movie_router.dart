@@ -3,11 +3,11 @@ import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_deta
 import '../../navigation/navigation_helper.dart';
 import 'app_routes.dart';
 
-abstract class HomeRouter {
+abstract class MovieRouter {
   void navigateToMovieDetailsScreen({required MovieDetailsArgument argument});
 }
 
-class HomeRouterImpl implements HomeRouter {
+class MovieRouterImpl implements MovieRouter {
   NavigationHelper navigationHelper = NavigationHelperImpl();
 
   @override
