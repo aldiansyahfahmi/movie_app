@@ -7,9 +7,9 @@ import 'package:movie_app/presentation/movie/bloc/top_rated_movie_cubit/top_rate
 import 'package:movie_app/presentation/movie/bloc/top_rated_movie_cubit/top_rated_movie_state.dart';
 import 'package:movie_app/presentation/movie/bloc/upcoming_movie_cubit/upcoming_movie_cubit.dart';
 import 'package:movie_app/presentation/movie/bloc/upcoming_movie_cubit/upcoming_movie_state.dart';
-import 'package:movie_app/presentation/movie/ui/component/movie/list_movie.dart';
-import 'package:movie_app/presentation/movie/ui/component/movie/loading.dart';
-import 'package:movie_app/presentation/movie/ui/component/movie/search.dart';
+import 'package:movie_app/presentation/movie/ui/component/list_movie.dart';
+import 'package:movie_app/presentation/movie/ui/component/loading.dart';
+import 'package:movie_app/presentation/movie/ui/component/search.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:movie_app/shared_libraries/utils/state/view_data_state.dart';

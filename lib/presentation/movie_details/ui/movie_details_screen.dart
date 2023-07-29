@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/presentation/movie/bloc/movie_details_cubit/movie_details_cubit.dart';
-import 'package:movie_app/presentation/movie/bloc/movie_details_cubit/movie_details_state.dart';
-import 'package:movie_app/presentation/movie/ui/component/movie_details/backdrop.dart';
-import 'package:movie_app/presentation/movie/ui/component/movie_details/genres.dart';
-import 'package:movie_app/presentation/movie/ui/component/movie_details/poster.dart';
+import 'package:movie_app/presentation/movie_details/bloc/movie_details_cubit/movie_details_cubit.dart';
+import 'package:movie_app/presentation/movie_details/bloc/movie_details_cubit/movie_details_state.dart';
+import 'package:movie_app/presentation/movie_details/ui/component/backdrop.dart';
+import 'package:movie_app/presentation/movie_details/ui/component/genres.dart';
+import 'package:movie_app/presentation/movie_details/ui/component/poster.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
