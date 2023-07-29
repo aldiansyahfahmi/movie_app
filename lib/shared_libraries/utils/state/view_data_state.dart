@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../error/failure_response.dart';
 import 'package:equatable/equatable.dart';
 
@@ -64,3 +66,29 @@ class ViewData<T> extends Equatable {
       ];
 }
 
+typedef NotifierBuilder<T> = Widget Function(T data);
+
+extension ObservingState<T> on ViewData<T> {
+  Widget observe(
+    NotifierBuilder<T?> widget, {
+    Widget Function(String? error)? onError,
+    Widget? onLoading,
+    Widget? onEmpty,
+  }) {
+    if (status.isLoading) {
+      return onLoading ?? const Center(child: CircularProgressIndicator());
+    } else if (status.isError) {
+      return onError != null
+          ? onError(failure!.errorMessage)
+          : Center(child: Text(failure!.errorMessage));
+    } else if (status.isHasData) {
+      if (status.isNoData) {
+        return onEmpty ?? const SizedBox();
+      } else {
+        return widget(data);
+      }
+    } else {
+      return const SizedBox();
+    }
+  }
+}
