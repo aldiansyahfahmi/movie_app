@@ -8,6 +8,7 @@ abstract class MovieRemoteDataSource {
   Future<ApiResponse<List<MovieDataDto>>> getTopRatedMovie();
   Future<ApiResponse<List<MovieDataDto>>> getNowPlayingMovie();
   Future<ApiResponse<List<MovieDataDto>>> getUpcomingMovie();
+  Future<MovieDataDto> getMovieDetails({required int id});
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
@@ -59,6 +60,16 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
           ),
         ),
       );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<MovieDataDto> getMovieDetails({required int id}) async {
+    try {
+      final response = await dio.get('${AppConstants.appApi.movie}/$id');
+      return MovieDataDto.fromJson(response.data);
     } catch (e) {
       rethrow;
     }

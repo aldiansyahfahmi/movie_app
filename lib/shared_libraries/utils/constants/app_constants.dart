@@ -32,9 +32,10 @@ class AppApi {
   String get baseUrlImage =>
       'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
 
-  String get topRatedMovie => 'movie/top_rated';
-  String get nowPlayingMovie => 'movie/now_playing';
-  String get upcomingMovie => 'movie/upcoming';
+  String get movie => 'movie';
+  String get topRatedMovie => '$movie/top_rated';
+  String get nowPlayingMovie => '$movie/now_playing';
+  String get upcomingMovie => '$movie/upcoming';
 }
 
 class ErrorKey {

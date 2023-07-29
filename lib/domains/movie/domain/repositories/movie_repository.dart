@@ -6,4 +6,6 @@ abstract class MovieRepository {
   Future<Either<FailureResponse, List<MovieDataEntity>>> getTopRatedMovie();
   Future<Either<FailureResponse, List<MovieDataEntity>>> getNowPlayingMovie();
   Future<Either<FailureResponse, List<MovieDataEntity>>> getUpcomingMovie();
+  Future<Either<FailureResponse, MovieDataEntity>> getMovieDetails(
+      {required int id});
 }

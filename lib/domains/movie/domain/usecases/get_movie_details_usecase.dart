@@ -5,9 +5,9 @@ import 'package:movie_app/domains/movie/domain/repositories/movie_repository.dar
 import 'package:movie_app/shared_libraries/utils/error/failure_response.dart';
 import 'package:movie_app/shared_libraries/utils/usecase/usecase.dart';
 
-class GetUpcomingMovieUseCase extends UseCase<List<MovieDataEntity>, NoParams> {
+class GetMovieDetailsUseCase extends UseCase<MovieDataEntity, int> {
   final MovieRepository movieRepository = MovieRepositoryImpl();
   @override
-  Future<Either<FailureResponse, List<MovieDataEntity>>> call(params) async =>
-      await movieRepository.getUpcomingMovie();
+  Future<Either<FailureResponse, MovieDataEntity>> call(params) async =>
+      await movieRepository.getMovieDetails(id: params);
 }
