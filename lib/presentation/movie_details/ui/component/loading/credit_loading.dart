@@ -8,84 +8,72 @@ class CreditLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShimmerLoading(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return ListView.separated(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return ShimmerLoading(
+          child: Column(
             children: [
-              Container(
-                height: 10,
-                width: 50,
-                color: ColorName.white,
-              ),
-              Container(
-                height: 10,
-                width: 60,
-                color: ColorName.white,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 16.h,
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: List.generate(
-                5,
-                (index) => Container(
-                  margin: EdgeInsets.only(right: index == 4 ? 0 : 16),
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 10,
+                    width: 80,
                     color: ColorName.white,
-                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  Container(
+                    height: 10,
+                    width: 90,
+                    color: ColorName.white,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    5,
+                    (index) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(right: index == 4 ? 0 : 16),
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: ColorName.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Container(
+                          height: 8,
+                          width: 60,
+                          color: ColorName.white,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          SizedBox(
-            height: 16.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                height: 10,
-                width: 50,
-                color: ColorName.white,
-              ),
-              Container(
-                height: 10,
-                width: 60,
-                color: ColorName.white,
-              ),
             ],
           ),
-          SizedBox(
-            height: 16.h,
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: List.generate(
-                5,
-                (index) => Container(
-                  margin: EdgeInsets.only(right: index == 4 ? 0 : 16),
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: ColorName.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
+      separatorBuilder: (context, index) {
+        return SizedBox(
+          height: 16.h,
+        );
+      },
+      itemCount: 2,
     );
   }
 }

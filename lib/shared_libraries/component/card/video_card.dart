@@ -1,82 +1,63 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/domains/movie/domain/entities/response/movie_response_entity.dart';
+import 'package:movie_app/domains/movie/domain/entities/response/video_response_entity.dart';
 import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dart';
-import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
-import 'package:movie_app/shared_libraries/utils/resources/assets.gen.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
-class MovieCard extends StatelessWidget {
-  const MovieCard({
+class VideoCard extends StatelessWidget {
+  const VideoCard({
     super.key,
-    required this.movie,
-    required this.onTap,
+    required this.video,
   });
 
-  final MovieDataEntity movie;
-  final GestureTapCallback onTap;
+  final VideoDataEntity video;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {},
       child: SizedBox(
-        width: 140,
+        width: 200,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                height: 160.h,
-                width: 140,
+                height: 85.h,
+                width: 200,
                 fit: BoxFit.cover,
-                imageUrl: AppConstants.appApi.baseUrlImage + movie.posterPath,
+                imageUrl: 'https://img.youtube.com/vi/${video.key}/0.jpg',
                 placeholder: (context, url) => ShimmerLoading(
                   child: Container(
-                    height: 160.h,
-                    width: 140,
+                    height: 100.h,
+                    width: 200,
                     decoration: BoxDecoration(
                       color: ColorName.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: ColorName.white,
+                  size: 80,
+                ),
               ),
             ),
             SizedBox(
               height: 8.h,
             ),
             Text(
-              movie.originalTitle,
+              video.name,
               style: TextStyle(
                 color: ColorName.white,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
               ),
-              maxLines: 2,
+              maxLines: 3,
               overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(
-              height: 4.h,
-            ),
-            Row(
-              children: [
-                Assets.images.icons.star.svg(),
-                const SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  movie.voteAverage.toString(),
-                  style: TextStyle(
-                    color: ColorName.white,
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
             ),
           ],
         ),

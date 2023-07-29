@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:movie_app/di/injections.dart';
 import 'package:movie_app/domains/movie/data/models/response/credits_response_dto.dart';
 import 'package:movie_app/domains/movie/data/models/response/movie_response_dto.dart';
+import 'package:movie_app/domains/movie/data/models/response/video_response_dto.dart';
 import 'package:movie_app/shared_libraries/core/network/models/api_response.dart';
 import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 
@@ -11,6 +12,7 @@ abstract class MovieRemoteDataSource {
   Future<ApiResponse<List<MovieDataDto>>> getUpcomingMovie();
   Future<MovieDataDto> getMovieDetails({required int id});
   Future<CreditsDto> getCredits({required int id});
+  Future<ApiResponse<List<VideoDataDto>>> getVideos({required int id});
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
@@ -83,6 +85,24 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
       final response = await dio.get(
           '${AppConstants.appApi.movie}/$id/${AppConstants.appApi.credits}');
       return CreditsDto.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<List<VideoDataDto>>> getVideos({required int id}) async {
+    try {
+      final response = await dio.get(
+          '${AppConstants.appApi.movie}/$id/${AppConstants.appApi.videos}');
+      return ApiResponse.fromJson(
+        response.data,
+        onDataDeserialized: (json) => List<VideoDataDto>.from(
+          json.map(
+            (x) => VideoDataDto.fromJson(x),
+          ),
+        ),
+      );
     } catch (e) {
       rethrow;
     }

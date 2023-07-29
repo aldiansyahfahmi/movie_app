@@ -37,6 +37,7 @@ class AppApi {
   String get nowPlayingMovie => '$movie/now_playing';
   String get upcomingMovie => '$movie/upcoming';
   String get credits => 'credits';
+  String get videos => 'videos';
 }
 
 class ErrorKey {

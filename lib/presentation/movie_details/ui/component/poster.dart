@@ -29,14 +29,14 @@ class Poster extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                height: 170.h,
-                width: 125,
+                height: 160.h,
+                width: 140,
                 fit: BoxFit.cover,
                 imageUrl: AppConstants.appApi.baseUrlImage + movie.posterPath,
                 placeholder: (context, url) => ShimmerLoading(
                   child: Container(
-                    height: 170.h,
-                    width: 125,
+                    height: 160.h,
+                    width: 140,
                     decoration: BoxDecoration(
                       color: ColorName.white,
                       borderRadius: BorderRadius.circular(8),

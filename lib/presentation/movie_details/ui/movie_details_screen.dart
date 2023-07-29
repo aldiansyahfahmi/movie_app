@@ -5,12 +5,16 @@ import 'package:movie_app/presentation/movie_details/bloc/credits_cubit/credits_
 import 'package:movie_app/presentation/movie_details/bloc/credits_cubit/credits_state.dart';
 import 'package:movie_app/presentation/movie_details/bloc/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movie_app/presentation/movie_details/bloc/movie_details_cubit/movie_details_state.dart';
+import 'package:movie_app/presentation/movie_details/bloc/videos_cubit/videos_cubit.dart';
+import 'package:movie_app/presentation/movie_details/bloc/videos_cubit/videos_state.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/backdrop.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/credits.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/genres.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/loading/credit_loading.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/loading/detail_loading.dart';
+import 'package:movie_app/presentation/movie_details/ui/component/loading/video_loading.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/poster.dart';
+import 'package:movie_app/presentation/movie_details/ui/component/videos.dart';
 import 'package:movie_app/shared_libraries/component/button/custom_back_button.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
@@ -38,10 +42,17 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         );
   }
 
+  void getVideos() {
+    context.read<VideosCubit>().getVideos(
+          id: widget.arguments.movieDataEntity.id,
+        );
+  }
+
   @override
   void initState() {
     getMovieDetails();
     getCredits();
+    getVideos();
     super.initState();
   }
 
@@ -107,26 +118,47 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16),
-                  child: BlocBuilder<CreditsCubit, CreditsState>(
-                    builder: (context, state) {
-                      return state.creditsState.observe(
-                        onLoading: const CreditLoading(),
-                        onError: (error) => ErrorView(
-                          error: error!,
-                          onTap: () => getCredits(),
-                        ),
-                        (data) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Credits(creditName: 'Cast', data: data!.cast),
-                            SizedBox(
-                              height: 16.h,
+                  child: Column(
+                    children: [
+                      BlocBuilder<VideosCubit, VideosState>(
+                        builder: (context, state) {
+                          return state.videosState.observe(
+                            onLoading: const VideoLoading(),
+                            onError: (error) => ErrorView(
+                              error: error!,
+                              onTap: () => getVideos(),
                             ),
-                            Credits(creditName: 'Crew', data: data.crew),
-                          ],
-                        ),
-                      );
-                    },
+                            (data) {
+                              return Videos(data: data!);
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      BlocBuilder<CreditsCubit, CreditsState>(
+                        builder: (context, state) {
+                          return state.creditsState.observe(
+                            onLoading: const CreditLoading(),
+                            onError: (error) => ErrorView(
+                              error: error!,
+                              onTap: () => getCredits(),
+                            ),
+                            (data) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Credits(creditName: 'Cast', data: data!.cast),
+                                SizedBox(
+                                  height: 16.h,
+                                ),
+                                Credits(creditName: 'Crew', data: data.crew),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 )
               ],
