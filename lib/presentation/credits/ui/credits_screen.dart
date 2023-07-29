@@ -37,7 +37,10 @@ class CreditScreen extends StatelessWidget {
             ),
             Expanded(
               child: AlignedGridView.count(
-                crossAxisCount: 4,
+                crossAxisCount:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? 4
+                        : 8,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
                 itemCount: argument.creditsDataEntity.length,
