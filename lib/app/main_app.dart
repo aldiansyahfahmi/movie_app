@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/features/home/presentation/bloc/now_playing_movie_cubit/now_playing_movie_cubit.dart';
-import 'package:movie_app/features/home/presentation/bloc/top_rated_movie_cubit/top_rated_movie_cubit.dart';
-import 'package:movie_app/features/home/presentation/bloc/upcoming_movie_cubit/upcoming_movie_cubit.dart';
-import 'package:movie_app/features/movie_details/presentation/ui/movie_details_screen.dart';
+import 'package:movie_app/presentation/movie/bloc/now_playing_movie_cubit/now_playing_movie_cubit.dart';
+import 'package:movie_app/presentation/movie/bloc/top_rated_movie_cubit/top_rated_movie_cubit.dart';
+import 'package:movie_app/presentation/movie/bloc/upcoming_movie_cubit/upcoming_movie_cubit.dart';
+import 'package:movie_app/presentation/movie/ui/movie_details_screen.dart';
+import 'package:movie_app/presentation/movie/ui/movie_screen.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:page_transition/page_transition.dart';
-import '../features/home/presentation/ui/home_screen.dart';
 import '../shared_libraries/utils/constants/app_constants.dart';
 import '../shared_libraries/utils/navigation/navigation_helper.dart';
 import '../shared_libraries/utils/navigation/router/app_routes.dart';
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                 create: (context) => UpcomingMovieCubit()..getUpcomingMovie(),
               ),
             ],
-            child: const HomeScreen(),
+            child: const MovieScreen(),
           ),
           navigatorKey: NavigationHelperImpl.navigatorKey,
           onGenerateRoute: (settings) {
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
                             UpcomingMovieCubit()..getUpcomingMovie(),
                       ),
                     ],
-                    child: const HomeScreen(),
+                    child: const MovieScreen(),
                   ),
                   type: PageTransitionType.rightToLeft,
                 );
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
                 );
               default:
                 return PageTransition(
-                  child: const HomeScreen(),
+                  child: const MovieScreen(),
                   type: PageTransitionType.rightToLeft,
                 );
             }
