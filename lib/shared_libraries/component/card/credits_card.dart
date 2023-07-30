@@ -24,14 +24,14 @@ class CreditsCard extends StatelessWidget {
               ? ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: CachedNetworkImage(
-                    height: 100.h,
+                    height: 150,
                     width: 100,
                     fit: BoxFit.cover,
                     imageUrl:
                         AppConstants.appApi.baseUrlImage + credit.profilePath,
                     placeholder: (context, url) => ShimmerLoading(
                       child: Container(
-                        height: 100.h,
+                        height: 150,
                         width: 100,
                         decoration: BoxDecoration(
                           color: ColorName.white,
@@ -47,7 +47,7 @@ class CreditsCard extends StatelessWidget {
                   ),
                 )
               : Container(
-                  height: 100.h,
+                  height: 150,
                   width: 100,
                   decoration: BoxDecoration(
                     color: ColorName.gray,
@@ -56,7 +56,7 @@ class CreditsCard extends StatelessWidget {
                   child: const Icon(
                     Icons.person,
                     color: ColorName.white,
-                    size: 80,
+                    size: 50,
                   ),
                 ),
           SizedBox(

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:movie_app/presentation/credits/ui/component/credits_loading.dart';
 import 'package:movie_app/presentation/movie_details/bloc/credits_cubit/credits_cubit.dart';
 import 'package:movie_app/presentation/movie_details/bloc/credits_cubit/credits_state.dart';
-import 'package:movie_app/shared_libraries/component/button/custom_back_button.dart';
+import 'package:movie_app/shared_libraries/component/appbar/custom_appbar.dart';
 import 'package:movie_app/shared_libraries/component/card/credits_card.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/credit_argument.dart';
-import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:movie_app/shared_libraries/utils/state/view_data_state.dart';
 
 class CreditScreen extends StatefulWidget {
@@ -39,25 +37,7 @@ class _CreditScreenState extends State<CreditScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  const CustomBackButton(),
-                  const SizedBox(
-                    width: 24,
-                  ),
-                  Text(
-                    widget.argument.creditName,
-                    style: TextStyle(
-                      color: ColorName.white,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            CustomAppBar(title: widget.argument.creditName),
             Expanded(
               child: BlocBuilder<CreditsCubit, CreditsState>(
                 builder: (context, state) {

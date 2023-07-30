@@ -30,8 +30,8 @@ class VideoLoading extends StatelessWidget {
                   children: [
                     Container(
                       margin: EdgeInsets.only(right: index == 4 ? 0 : 16),
-                      width: 200,
-                      height: 85.h,
+                      height: 150,
+                      width: 220,
                       decoration: BoxDecoration(
                         color: ColorName.white,
                         borderRadius: BorderRadius.circular(8),

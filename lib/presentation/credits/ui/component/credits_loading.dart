@@ -11,6 +11,7 @@ class CreditsLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShimmerLoading(
       child: AlignedGridView.count(
+        padding: const EdgeInsets.all(16),
         crossAxisCount:
             MediaQuery.of(context).orientation == Orientation.portrait ? 4 : 8,
         mainAxisSpacing: 16,

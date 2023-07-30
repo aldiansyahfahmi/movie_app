@@ -15,12 +15,11 @@ import 'package:movie_app/presentation/movie_details/ui/component/loading/detail
 import 'package:movie_app/presentation/movie_details/ui/component/loading/video_loading.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/poster.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/videos.dart';
-import 'package:movie_app/shared_libraries/component/button/custom_back_button.dart';
+import 'package:movie_app/shared_libraries/component/appbar/custom_appbar.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:movie_app/shared_libraries/utils/state/view_data_state.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final MovieDetailsArgument arguments;
@@ -31,6 +30,15 @@ class MovieDetailsScreen extends StatefulWidget {
 }
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
+  late final ScrollController scrollController;
+  double scrollControllerOffset = 0.0;
+
+  void scrollListener() {
+    setState(() {
+      scrollControllerOffset = scrollController.offset;
+    });
+  }
+
   void getMovieDetails() {
     context.read<MovieDetailsCubit>().getMovieDetails(
           id: widget.arguments.movieDataEntity.id,
@@ -51,6 +59,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   void initState() {
+    scrollController = ScrollController();
+    scrollController.addListener(scrollListener);
     getMovieDetails();
     getCredits();
     getVideos();
@@ -59,137 +69,130 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final videoCubit = context.read<VideosCubit>();
-    return YoutubePlayerBuilder(
-      player: YoutubePlayer(
-        controller: videoCubit.ytControllers[videoCubit.videoIndex],
-      ),
-      builder: (context, player) {
-        return Scaffold(
-          body: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
-                      builder: (context, state) {
-                        return state.movieDetailsState.observe(
-                          onLoading: const DetailLoading(),
-                          onError: (error) => ErrorView(
-                            error: error!,
-                            onTap: () => getMovieDetails(),
-                          ),
-                          (movie) => Column(
+    return Scaffold(
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            controller: scrollController,
+            child: Column(
+              children: [
+                BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
+                  builder: (context, state) {
+                    return state.movieDetailsState.observe(
+                      onLoading: const DetailLoading(),
+                      onError: (error) => ErrorView(
+                        error: error!,
+                        onTap: () => getMovieDetails(),
+                      ),
+                      (movie) => Column(
+                        children: [
+                          Stack(
                             children: [
-                              Stack(
-                                children: [
-                                  Backdrop(movie: movie!),
-                                  Poster(movie: movie),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Genres(movie: movie),
-                                    SizedBox(
-                                      height: 16.h,
-                                    ),
-                                    Text(
-                                      'Storyline',
-                                      style: TextStyle(
-                                        color: ColorName.white,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 8.h,
-                                    ),
-                                    Text(
-                                      movie.overview,
-                                      style: TextStyle(
-                                        color:
-                                            ColorName.white.withOpacity(0.80),
-                                        fontSize: 14.sp,
-                                        height: 1.5,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              Backdrop(movie: movie!),
+                              Poster(movie: movie),
                             ],
                           ),
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          BlocBuilder<VideosCubit, VideosState>(
-                            builder: (context, state) {
-                              return state.videosState.observe(
-                                onLoading: const VideoLoading(),
-                                onError: (error) => ErrorView(
-                                  error: error!,
-                                  onTap: () => getVideos(),
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Genres(movie: movie),
+                                SizedBox(
+                                  height: 16.h,
                                 ),
-                                (data) {
-                                  return Videos(data: data!);
-                                },
-                              );
-                            },
-                          ),
-                          SizedBox(
-                            height: 16.h,
-                          ),
-                          BlocBuilder<CreditsCubit, CreditsState>(
-                            builder: (context, state) {
-                              return state.creditsState.observe(
-                                onLoading: const CreditLoading(),
-                                onError: (error) => ErrorView(
-                                  error: error!,
-                                  onTap: () => getCredits(),
+                                Text(
+                                  'Storyline',
+                                  style: TextStyle(
+                                    color: ColorName.white,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                                (data) => Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Credits(
-                                      movideId: data!.id,
-                                      creditName: 'Cast',
-                                      data: data.cast,
-                                    ),
-                                    SizedBox(
-                                      height: 16.h,
-                                    ),
-                                    Credits(
-                                      movideId: data.id,
-                                      creditName: 'Crew',
-                                      data: data.crew,
-                                    ),
-                                  ],
+                                SizedBox(
+                                  height: 8.h,
                                 ),
-                              );
-                            },
+                                Text(
+                                  movie.overview,
+                                  style: TextStyle(
+                                    color: ColorName.white.withOpacity(0.80),
+                                    fontSize: 14.sp,
+                                    height: 1.5,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                    )
-                  ],
+                    );
+                  },
                 ),
-              ),
-              const SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: CustomBackButton(),
-                ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BlocBuilder<VideosCubit, VideosState>(
+                        builder: (context, state) {
+                          return state.videosState.observe(
+                            onLoading: const VideoLoading(),
+                            onError: (error) => ErrorView(
+                              error: error!,
+                              onTap: () => getVideos(),
+                            ),
+                            (data) {
+                              return Videos(data: data!);
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      BlocBuilder<CreditsCubit, CreditsState>(
+                        builder: (context, state) {
+                          return state.creditsState.observe(
+                            onLoading: const CreditLoading(),
+                            onError: (error) => ErrorView(
+                              error: error!,
+                              onTap: () => getCredits(),
+                            ),
+                            (data) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Credits(
+                                  movideId: data!.id,
+                                  creditName: 'Cast',
+                                  data: data.cast,
+                                ),
+                                SizedBox(
+                                  height: 16.h,
+                                ),
+                                Credits(
+                                  movideId: data.id,
+                                  creditName: 'Crew',
+                                  data: data.crew,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        );
-      },
+          CustomAppBar(
+            title: '',
+            color: ColorName.black.withOpacity(
+              (scrollControllerOffset / 350).clamp(0, 1).toDouble(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

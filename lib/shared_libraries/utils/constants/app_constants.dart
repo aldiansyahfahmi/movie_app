@@ -12,7 +12,7 @@ class App {
   const App();
 
   double get defaultMargin => 16.0;
-  String get appName => "YOUR-APP-NAME";
+  String get appName => "Movie App";
   String get androidAppId => '';
   String get iosAppId => '';
 

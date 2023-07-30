@@ -45,7 +45,7 @@ class CreditLoading extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(right: index == 4 ? 0 : 16),
                           width: 100,
-                          height: 100,
+                          height: 150,
                           decoration: BoxDecoration(
                             color: ColorName.white,
                             borderRadius: BorderRadius.circular(8),

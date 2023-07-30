@@ -20,15 +20,15 @@ class VideoCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: 200,
+        width: 220,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                height: 85.h,
-                width: 200,
+                height: 150,
+                width: 220,
                 fit: BoxFit.cover,
                 imageUrl: 'https://img.youtube.com/vi/${video.key}/0.jpg',
                 placeholder: (context, url) => ShimmerLoading(
