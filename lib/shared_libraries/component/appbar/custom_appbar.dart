@@ -20,6 +20,7 @@ class CustomAppBar extends StatelessWidget {
       color: color ?? ColorName.black,
       child: SafeArea(
         bottom: false,
+        left: false,
         child: Row(
           children: [
             const CustomBackButton(),

@@ -222,17 +222,17 @@ class _MovieScreenState extends State<MovieScreen>
   }
 
   Widget _buildLoading() {
-    return SizedBox(
-      height: 200.h,
-      child: ListView.builder(
-        itemCount: 5,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Container(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: List.generate(
+          5,
+          (index) => Container(
             margin: EdgeInsets.only(right: index == 4 ? 0 : 16),
             child: const MovieLoading(),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

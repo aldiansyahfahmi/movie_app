@@ -35,6 +35,8 @@ class _CreditScreenState extends State<CreditScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        left: false,
+        right: false,
         child: Column(
           children: [
             CustomAppBar(title: widget.argument.creditName),
