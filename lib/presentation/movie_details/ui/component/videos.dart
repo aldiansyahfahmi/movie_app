@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/video_response_entity.dart';
+import 'package:movie_app/presentation/movie_details/bloc/videos_cubit/videos_cubit.dart';
 import 'package:movie_app/shared_libraries/component/card/video_card.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
@@ -13,16 +15,7 @@ class Videos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List<YoutubePlayerController> ytControllers = data
-    //     .map(
-    //       (video) => YoutubePlayerController(
-    //         initialVideoId: video.key,
-    //         flags: const YoutubePlayerFlags(
-    //           autoPlay: false,
-    //         ),
-    //       ),
-    //     )
-    //     .toList();
+    final videoCubit = context.read<VideosCubit>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,42 +30,51 @@ class Videos extends StatelessWidget {
         SizedBox(
           height: 16.h,
         ),
-        // SizedBox(
-        //   height: 200.h,
-        //   child: ListView.separated(
-        //     scrollDirection: Axis.horizontal,
-        //     itemBuilder: (context, index) {
-        //       return SizedBox(
-        //         width: 200,
-        //         child: YoutubePlayer(
-        //           controller: ytControllers[index],
-        //         ),
-        //       );
-        //     },
-        //     separatorBuilder: (context, index) {
-        //       return const SizedBox(
-        //         width: 16,
-        //       );
-        //     },
-        //     itemCount: data.length,
-        //   ),
-        // ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: data
-                .map(
-                  (video) => Padding(
-                    padding: EdgeInsets.only(
-                      right: video == data.last ? 0 : 16,
-                    ),
-                    child: VideoCard(video: video),
-                  ),
-                )
-                .toList(),
+        SizedBox(
+          height: 140.h,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return VideoCard(
+                video: data[index],
+                onTap: () {
+                  videoCubit.videoIndex = index;
+                  videoCubit.ytControllers[videoCubit.videoIndex]
+                      .toggleFullScreenMode();
+                },
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const SizedBox(
+                width: 16,
+              );
+            },
+            itemCount: data.length,
           ),
         ),
+        // SingleChildScrollView(
+        //   scrollDirection: Axis.horizontal,
+        //   child: Row(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: data
+        //         .map(
+        //           (video) => Padding(
+        //             padding: EdgeInsets.only(
+        //               right: video == data.last ? 0 : 16,
+        //             ),
+        //             child: VideoCard(
+        //               video: video,
+        //               onTap: () {
+        //                 videoCubit.videoIndex = 1;
+        //                 videoCubit.ytControllers[videoCubit.videoIndex]
+        //                     .toggleFullScreenMode();
+        //               },
+        //             ),
+        //           ),
+        //         )
+        //         .toList(),
+        //   ),
+        // ),
       ],
     );
   }

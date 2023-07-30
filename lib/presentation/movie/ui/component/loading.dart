@@ -22,8 +22,8 @@ class Loading extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 170.h,
-                    width: 125,
+                    height: 160.h,
+                    width: 140,
                     decoration: BoxDecoration(
                       color: ColorName.white,
                       borderRadius: BorderRadius.circular(8),

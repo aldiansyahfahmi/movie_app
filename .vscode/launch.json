@@ -12,6 +12,14 @@
       "args": ["--flavor", "dev"]
     },
     {
+      "name": "main_dev (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile",
+      "program": "lib/launcher/main_dev.dart",
+      "args": ["--flavor", "dev"]
+    },
+    {
       "name": "main_prod",
       "type": "dart",
       "request": "launch",

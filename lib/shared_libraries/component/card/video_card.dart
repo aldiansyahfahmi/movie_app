@@ -9,14 +9,16 @@ class VideoCard extends StatelessWidget {
   const VideoCard({
     super.key,
     required this.video,
+    required this.onTap,
   });
 
   final VideoDataEntity video;
+  final GestureTapCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: SizedBox(
         width: 200,
         child: Column(

@@ -20,6 +20,7 @@ import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:movie_app/shared_libraries/utils/state/view_data_state.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final MovieDetailsArgument arguments;
@@ -58,120 +59,131 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
-                  builder: (context, state) {
-                    return state.movieDetailsState.observe(
-                      onLoading: const DetailLoading(),
-                      onError: (error) => ErrorView(
-                        error: error!,
-                        onTap: () => getMovieDetails(),
-                      ),
-                      (movie) => Column(
-                        children: [
-                          Stack(
+    final videoCubit = context.read<VideosCubit>();
+    return YoutubePlayerBuilder(
+      player: YoutubePlayer(
+        controller: videoCubit.ytControllers[videoCubit.videoIndex],
+      ),
+      builder: (context, player) {
+        return Scaffold(
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
+                      builder: (context, state) {
+                        return state.movieDetailsState.observe(
+                          onLoading: const DetailLoading(),
+                          onError: (error) => ErrorView(
+                            error: error!,
+                            onTap: () => getMovieDetails(),
+                          ),
+                          (movie) => Column(
                             children: [
-                              Backdrop(movie: movie!),
-                              Poster(movie: movie),
+                              Stack(
+                                children: [
+                                  Backdrop(movie: movie!),
+                                  Poster(movie: movie),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Genres(movie: movie),
+                                    SizedBox(
+                                      height: 16.h,
+                                    ),
+                                    Text(
+                                      'Storyline',
+                                      style: TextStyle(
+                                        color: ColorName.white,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Text(
+                                      movie.overview,
+                                      style: TextStyle(
+                                        color:
+                                            ColorName.white.withOpacity(0.80),
+                                        fontSize: 14.sp,
+                                        height: 1.5,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Genres(movie: movie),
-                                SizedBox(
-                                  height: 16.h,
+                        );
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          BlocBuilder<VideosCubit, VideosState>(
+                            builder: (context, state) {
+                              return state.videosState.observe(
+                                onLoading: const VideoLoading(),
+                                onError: (error) => ErrorView(
+                                  error: error!,
+                                  onTap: () => getVideos(),
                                 ),
-                                Text(
-                                  'Storyline',
-                                  style: TextStyle(
-                                    color: ColorName.white,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                (data) {
+                                  return Videos(data: data!);
+                                },
+                              );
+                            },
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          BlocBuilder<CreditsCubit, CreditsState>(
+                            builder: (context, state) {
+                              return state.creditsState.observe(
+                                onLoading: const CreditLoading(),
+                                onError: (error) => ErrorView(
+                                  error: error!,
+                                  onTap: () => getCredits(),
                                 ),
-                                SizedBox(
-                                  height: 8.h,
+                                (data) => Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Credits(
+                                        creditName: 'Cast', data: data!.cast),
+                                    SizedBox(
+                                      height: 16.h,
+                                    ),
+                                    Credits(
+                                        creditName: 'Crew', data: data.crew),
+                                  ],
                                 ),
-                                Text(
-                                  movie.overview,
-                                  style: TextStyle(
-                                    color: ColorName.white.withOpacity(0.80),
-                                    fontSize: 14.sp,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              );
+                            },
                           ),
                         ],
                       ),
-                    );
-                  },
+                    )
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      BlocBuilder<VideosCubit, VideosState>(
-                        builder: (context, state) {
-                          return state.videosState.observe(
-                            onLoading: const VideoLoading(),
-                            onError: (error) => ErrorView(
-                              error: error!,
-                              onTap: () => getVideos(),
-                            ),
-                            (data) {
-                              return Videos(data: data!);
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: 16.h,
-                      ),
-                      BlocBuilder<CreditsCubit, CreditsState>(
-                        builder: (context, state) {
-                          return state.creditsState.observe(
-                            onLoading: const CreditLoading(),
-                            onError: (error) => ErrorView(
-                              error: error!,
-                              onTap: () => getCredits(),
-                            ),
-                            (data) => Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Credits(creditName: 'Cast', data: data!.cast),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                Credits(creditName: 'Crew', data: data.crew),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              ),
+              const SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: CustomBackButton(),
+                ),
+              ),
+            ],
           ),
-          const SafeArea(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: CustomBackButton(),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
