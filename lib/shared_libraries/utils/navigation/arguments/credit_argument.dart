@@ -1,13 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie_app/domains/movie/domain/entities/response/credits_response_entity.dart';
 
 class CreditArgument extends Equatable {
   final String creditName;
-  final List<CreditsDataEntity> creditsDataEntity;
+  final int movieId;
 
-  const CreditArgument(
-      {required this.creditName, required this.creditsDataEntity});
+  const CreditArgument({required this.creditName, required this.movieId});
 
   @override
-  List<Object?> get props => [creditName, creditsDataEntity];
+  List<Object?> get props => [creditName, movieId];
 }

@@ -157,12 +157,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Credits(
-                                        creditName: 'Cast', data: data!.cast),
+                                      movideId: data!.id,
+                                      creditName: 'Cast',
+                                      data: data.cast,
+                                    ),
                                     SizedBox(
                                       height: 16.h,
                                     ),
                                     Credits(
-                                        creditName: 'Crew', data: data.crew),
+                                      movideId: data.id,
+                                      creditName: 'Crew',
+                                      data: data.crew,
+                                    ),
                                   ],
                                 ),
                               );

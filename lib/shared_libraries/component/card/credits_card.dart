@@ -31,7 +31,7 @@ class CreditsCard extends StatelessWidget {
                         AppConstants.appApi.baseUrlImage + credit.profilePath,
                     placeholder: (context, url) => ShimmerLoading(
                       child: Container(
-                        height: 150.h,
+                        height: 100.h,
                         width: 100,
                         decoration: BoxDecoration(
                           color: ColorName.white,

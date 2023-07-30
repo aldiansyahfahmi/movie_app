@@ -104,8 +104,11 @@ class MyApp extends StatelessWidget {
                 );
               case AppRoutes.credits:
                 return PageTransition(
-                  child: CreditScreen(
-                    argument: arguments as CreditArgument,
+                  child: BlocProvider(
+                    create: (context) => CreditsCubit(),
+                    child: CreditScreen(
+                      argument: arguments as CreditArgument,
+                    ),
                   ),
                   type: PageTransitionType.rightToLeft,
                 );

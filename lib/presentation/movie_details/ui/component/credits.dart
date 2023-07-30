@@ -7,8 +7,13 @@ import 'package:movie_app/shared_libraries/utils/navigation/router/movie_details
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
 class Credits extends StatelessWidget {
-  const Credits({super.key, required this.creditName, required this.data});
+  const Credits(
+      {super.key,
+      required this.movideId,
+      required this.creditName,
+      required this.data});
 
+  final int movideId;
   final String creditName;
   final List<CreditsDataEntity> data;
 
@@ -32,7 +37,7 @@ class Credits extends StatelessWidget {
               onTap: () => movieDetailsRouter.navigateToCreditScreen(
                 argument: CreditArgument(
                   creditName: creditName,
-                  creditsDataEntity: data,
+                  movieId: movideId,
                 ),
               ),
               child: Text(
