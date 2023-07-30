@@ -7,7 +7,7 @@ import 'package:movie_app/shared_libraries/core/network/models/api_response.dart
 import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 
 abstract class MovieRemoteDataSource {
-  Future<ApiResponse<List<MovieDataDto>>> getTopRatedMovie();
+  Future<ApiResponse<List<MovieDataDto>>> getTopRatedMovie({required int page});
   Future<ApiResponse<List<MovieDataDto>>> getNowPlayingMovie();
   Future<ApiResponse<List<MovieDataDto>>> getUpcomingMovie();
   Future<ApiResponse<List<MovieDataDto>>> getTrendingMovie(
@@ -21,9 +21,15 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   final Dio dio = sl();
 
   @override
-  Future<ApiResponse<List<MovieDataDto>>> getTopRatedMovie() async {
+  Future<ApiResponse<List<MovieDataDto>>> getTopRatedMovie(
+      {required int page}) async {
     try {
-      final response = await dio.get(AppConstants.appApi.topRatedMovie);
+      final response = await dio.get(
+        AppConstants.appApi.topRatedMovie,
+        queryParameters: {
+          'page': page,
+        },
+      );
       return ApiResponse.fromJson(
         response.data,
         onDataDeserialized: (json) => List<MovieDataDto>.from(

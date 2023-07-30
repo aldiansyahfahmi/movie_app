@@ -5,6 +5,7 @@ import 'app_routes.dart';
 
 abstract class MovieRouter {
   void navigateToMovieDetailsScreen({required MovieDetailsArgument argument});
+  void navigateToTopRatedMoviesScreen();
 }
 
 class MovieRouterImpl implements MovieRouter {
@@ -17,4 +18,9 @@ class MovieRouterImpl implements MovieRouter {
       arguments: argument,
     );
   }
+
+  @override
+  void navigateToTopRatedMoviesScreen() => navigationHelper.pushNamed(
+        AppRoutes.topRatedMovies,
+      );
 }

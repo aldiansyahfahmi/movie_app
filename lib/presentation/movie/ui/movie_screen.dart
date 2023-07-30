@@ -10,9 +10,10 @@ import 'package:movie_app/presentation/movie/bloc/trending_movie_cubit/trending_
 import 'package:movie_app/presentation/movie/bloc/upcoming_movie_cubit/upcoming_movie_cubit.dart';
 import 'package:movie_app/presentation/movie/bloc/upcoming_movie_cubit/upcoming_movie_state.dart';
 import 'package:movie_app/presentation/movie/ui/component/list_movie.dart';
-import 'package:movie_app/presentation/movie/ui/component/loading.dart';
+import 'package:movie_app/shared_libraries/component/loading/movie_loading.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
+import 'package:movie_app/shared_libraries/utils/navigation/router/movie_router.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:movie_app/shared_libraries/utils/state/view_data_state.dart';
 
@@ -35,6 +36,7 @@ class _MovieScreenState extends State<MovieScreen>
 
   @override
   Widget build(BuildContext context) {
+    final MovieRouter movieRouter = MovieRouterImpl();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -121,7 +123,7 @@ class _MovieScreenState extends State<MovieScreen>
               BlocBuilder<TrendingMovieCubit, TrendingMovieState>(
                 builder: (context, state) {
                   return state.trendingMovieState.observe(
-                    onLoading: const Loading(),
+                    onLoading: _buildLoading(),
                     onError: (error) => ErrorView(
                       error: error!,
                       onTap: () => context
@@ -135,13 +137,29 @@ class _MovieScreenState extends State<MovieScreen>
               SizedBox(
                 height: 16.h,
               ),
-              Text(
-                'Top Rated',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                  color: ColorName.white,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Top Rated',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                      color: ColorName.white,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => movieRouter.navigateToTopRatedMoviesScreen(),
+                    child: Text(
+                      'View More',
+                      style: TextStyle(
+                        color: ColorName.orange,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 16.h,
@@ -149,11 +167,12 @@ class _MovieScreenState extends State<MovieScreen>
               BlocBuilder<TopRatedMovieCubit, TopRatedMovieState>(
                 builder: (context, state) {
                   return state.topRatedMovieState.observe(
-                    onLoading: const Loading(),
+                    onLoading: _buildLoading(),
                     onError: (error) => ErrorView(
                       error: error!,
-                      onTap: () =>
-                          context.read<TopRatedMovieCubit>().getTopRatedMovie(),
+                      onTap: () => context
+                          .read<TopRatedMovieCubit>()
+                          .getTopRatedMovie(page: 1),
                     ),
                     (data) => ListMovie(data: data!),
                   );
@@ -176,7 +195,7 @@ class _MovieScreenState extends State<MovieScreen>
               BlocBuilder<NowPlayingMovieCubit, NowPlayingMovieState>(
                 builder: (context, state) {
                   return state.nowPlayingMovieState.observe(
-                    onLoading: const Loading(),
+                    onLoading: _buildLoading(),
                     onError: (error) => ErrorView(
                       error: error!,
                       onTap: () => context
@@ -204,7 +223,7 @@ class _MovieScreenState extends State<MovieScreen>
               BlocBuilder<UpcomingMovieCubit, UpcomingMovieState>(
                 builder: (context, state) {
                   return state.upcomingMovieState.observe(
-                    onLoading: const Loading(),
+                    onLoading: _buildLoading(),
                     onError: (error) => ErrorView(
                       error: error!,
                       onTap: () =>
@@ -217,6 +236,22 @@ class _MovieScreenState extends State<MovieScreen>
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildLoading() {
+    return SizedBox(
+      height: 200.h,
+      child: ListView.builder(
+        itemCount: 5,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.only(right: index == 4 ? 0 : 16),
+            child: const MovieLoading(),
+          );
+        },
       ),
     );
   }

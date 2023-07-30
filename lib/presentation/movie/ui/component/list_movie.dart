@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/movie_response_entity.dart';
 import 'package:movie_app/shared_libraries/component/card/movie_card.dart';
-import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
-import 'package:movie_app/shared_libraries/utils/navigation/router/movie_router.dart';
 
 class ListMovie extends StatelessWidget {
   final List<MovieDataEntity> data;
@@ -13,7 +11,6 @@ class ListMovie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MovieRouter movieRouter = MovieRouterImpl();
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -26,11 +23,6 @@ class ListMovie extends StatelessWidget {
                 ),
                 child: MovieCard(
                   movie: movie,
-                  onTap: () => movieRouter.navigateToMovieDetailsScreen(
-                    argument: MovieDetailsArgument(
-                      movieDataEntity: movie,
-                    ),
-                  ),
                 ),
               ),
             )

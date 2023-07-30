@@ -68,6 +68,7 @@ class _CreditScreenState extends State<CreditScreen> {
                       onTap: () => getCredits(),
                     ),
                     (data) => AlignedGridView.count(
+                      padding: const EdgeInsets.all(16),
                       crossAxisCount: MediaQuery.of(context).orientation ==
                               Orientation.portrait
                           ? 4

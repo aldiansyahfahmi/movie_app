@@ -11,6 +11,7 @@ import 'package:movie_app/presentation/movie/bloc/upcoming_movie_cubit/upcoming_
 import 'package:movie_app/presentation/movie_details/bloc/videos_cubit/videos_cubit.dart';
 import 'package:movie_app/presentation/movie_details/ui/movie_details_screen.dart';
 import 'package:movie_app/presentation/movie/ui/movie_screen.dart';
+import 'package:movie_app/presentation/top_rated_movies/ui/top_rated_movies_screen.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/credit_argument.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
           home: MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => TopRatedMovieCubit()..getTopRatedMovie(),
+                create: (context) =>
+                    TopRatedMovieCubit()..getTopRatedMovie(page: 1),
               ),
               BlocProvider(
                 create: (context) =>
@@ -72,7 +74,7 @@ class MyApp extends StatelessWidget {
                     providers: [
                       BlocProvider(
                         create: (context) =>
-                            TopRatedMovieCubit()..getTopRatedMovie(),
+                            TopRatedMovieCubit()..getTopRatedMovie(page: 1),
                       ),
                       BlocProvider(
                         create: (context) =>
@@ -108,6 +110,14 @@ class MyApp extends StatelessWidget {
                     child: MovieDetailsScreen(
                       arguments: arguments as MovieDetailsArgument,
                     ),
+                  ),
+                  type: PageTransitionType.rightToLeft,
+                );
+              case AppRoutes.topRatedMovies:
+                return PageTransition(
+                  child: BlocProvider(
+                    create: (context) => TopRatedMovieCubit(),
+                    child: const TopRatedMoviesScreen(),
                   ),
                   type: PageTransitionType.rightToLeft,
                 );

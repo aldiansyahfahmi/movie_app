@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/movie_response_entity.dart';
 import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dart';
 import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
+import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
+import 'package:movie_app/shared_libraries/utils/navigation/router/movie_router.dart';
 import 'package:movie_app/shared_libraries/utils/resources/assets.gen.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
@@ -11,16 +13,19 @@ class MovieCard extends StatelessWidget {
   const MovieCard({
     super.key,
     required this.movie,
-    required this.onTap,
   });
 
   final MovieDataEntity movie;
-  final GestureTapCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final MovieRouter movieRouter = MovieRouterImpl();
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => movieRouter.navigateToMovieDetailsScreen(
+        argument: MovieDetailsArgument(
+          movieDataEntity: movie,
+        ),
+      ),
       child: SizedBox(
         width: 140,
         child: Column(
