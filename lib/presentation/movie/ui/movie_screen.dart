@@ -13,7 +13,6 @@ import 'package:movie_app/presentation/movie/ui/component/list_movie.dart';
 import 'package:movie_app/shared_libraries/component/loading/movie_loading.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
-import 'package:movie_app/shared_libraries/utils/navigation/router/movie_router.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:movie_app/shared_libraries/utils/state/view_data_state.dart';
 
@@ -36,7 +35,6 @@ class _MovieScreenState extends State<MovieScreen>
 
   @override
   Widget build(BuildContext context) {
-    final MovieRouter movieRouter = MovieRouterImpl();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -137,29 +135,13 @@ class _MovieScreenState extends State<MovieScreen>
               SizedBox(
                 height: 16.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Top Rated',
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                      color: ColorName.white,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => movieRouter.navigateToTopRatedMoviesScreen(),
-                    child: Text(
-                      'View More',
-                      style: TextStyle(
-                        color: ColorName.orange,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
+              Text(
+                'Top Rated',
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  color: ColorName.white,
+                ),
               ),
               SizedBox(
                 height: 16.h,
@@ -170,9 +152,8 @@ class _MovieScreenState extends State<MovieScreen>
                     onLoading: _buildLoading(),
                     onError: (error) => ErrorView(
                       error: error!,
-                      onTap: () => context
-                          .read<TopRatedMovieCubit>()
-                          .getTopRatedMovie(page: 1),
+                      onTap: () =>
+                          context.read<TopRatedMovieCubit>().getTopRatedMovie(),
                     ),
                     (data) => ListMovie(data: data!),
                   );

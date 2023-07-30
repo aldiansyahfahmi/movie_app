@@ -8,25 +8,22 @@ import 'package:movie_app/domains/movie/domain/entities/response/credits_respons
 import 'package:movie_app/domains/movie/domain/entities/response/movie_response_entity.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/video_response_entity.dart';
 import 'package:movie_app/domains/movie/domain/repositories/movie_repository.dart';
-import 'package:movie_app/shared_libraries/core/network/mapper/global_mapper.dart';
-import 'package:movie_app/shared_libraries/core/network/models/api_response_entity.dart';
 import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:movie_app/shared_libraries/utils/error/failure_response.dart';
 
 class MovieRepositoryImpl implements MovieRepository {
   final MovieRemoteDataSource movieRemoteDataSource =
       MovieRemoteDataSourceImpl();
-  final GlobalMapper globalMapper = GlobalMapper();
   final MovieMapper movieMapper = MovieMapper();
   final CreditsMapper creditsMapper = CreditsMapper();
   final VideoMapper videoMapper = VideoMapper();
 
   @override
-  Future<Either<FailureResponse, ApiResponseEntity<List<MovieDataEntity>>>>
-      getTopRatedMovie({required int page}) async {
+  Future<Either<FailureResponse, List<MovieDataEntity>>>
+      getTopRatedMovie() async {
     try {
-      final response = await movieRemoteDataSource.getTopRatedMovie(page: page);
-      return Right(globalMapper.mapApiResponseToApiResponseEntity(response));
+      final response = await movieRemoteDataSource.getTopRatedMovie();
+      return Right(movieMapper.mapMovieDataDtoToEntity(response.results!));
     } on DioException catch (error) {
       return Left(
         FailureResponse(
