@@ -16,7 +16,7 @@ class MovieLoading extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 160.h,
+            height: 210,
             width: 140,
             decoration: BoxDecoration(
               color: ColorName.white,

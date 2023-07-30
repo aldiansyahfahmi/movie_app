@@ -33,22 +33,54 @@ class MovieCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: CachedNetworkImage(
-                height: 160.h,
-                width: 140,
-                fit: BoxFit.cover,
-                imageUrl: AppConstants.appApi.baseUrlImage + movie.posterPath,
-                placeholder: (context, url) => ShimmerLoading(
-                  child: Container(
-                    height: 160.h,
+              child: Stack(
+                children: [
+                  CachedNetworkImage(
+                    height: 210,
                     width: 140,
+                    fit: BoxFit.cover,
+                    imageUrl:
+                        AppConstants.appApi.baseUrlImage + movie.posterPath,
+                    placeholder: (context, url) => ShimmerLoading(
+                      child: Container(
+                        height: 160.h,
+                        width: 140,
+                        decoration: BoxDecoration(
+                          color: ColorName.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: ColorName.white,
-                      borderRadius: BorderRadius.circular(8),
+                      color: ColorName.black.withOpacity(0.5),
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(8),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Assets.images.icons.star.svg(width: 12, height: 12),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          movie.voteAverage.toStringAsFixed(1),
+                          style: TextStyle(
+                            color: ColorName.white,
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                ],
               ),
             ),
             SizedBox(
@@ -63,25 +95,6 @@ class MovieCard extends StatelessWidget {
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(
-              height: 4.h,
-            ),
-            Row(
-              children: [
-                Assets.images.icons.star.svg(),
-                const SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  movie.voteAverage.toStringAsFixed(1),
-                  style: TextStyle(
-                    color: ColorName.white,
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
             ),
           ],
         ),
