@@ -10,7 +10,7 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 260.h,
+      height: 200.h,
       child: ListView.builder(
         itemCount: 5,
         scrollDirection: Axis.horizontal,

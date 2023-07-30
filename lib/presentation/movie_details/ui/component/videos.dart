@@ -52,29 +52,6 @@ class Videos extends StatelessWidget {
             itemCount: data.length,
           ),
         ),
-        // SingleChildScrollView(
-        //   scrollDirection: Axis.horizontal,
-        //   child: Row(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: data
-        //         .map(
-        //           (video) => Padding(
-        //             padding: EdgeInsets.only(
-        //               right: video == data.last ? 0 : 16,
-        //             ),
-        //             child: VideoCard(
-        //               video: video,
-        //               onTap: () {
-        //                 videoCubit.videoIndex = 1;
-        //                 videoCubit.ytControllers[videoCubit.videoIndex]
-        //                     .toggleFullScreenMode();
-        //               },
-        //             ),
-        //           ),
-        //         )
-        //         .toList(),
-        //   ),
-        // ),
       ],
     );
   }

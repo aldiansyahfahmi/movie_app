@@ -15,6 +15,9 @@ class App {
   String get appName => "YOUR-APP-NAME";
   String get androidAppId => '';
   String get iosAppId => '';
+
+  String get day => 'day';
+  String get week => 'week';
 }
 
 class CachedKey {
@@ -38,6 +41,7 @@ class AppApi {
   String get upcomingMovie => '$movie/upcoming';
   String get credits => 'credits';
   String get videos => 'videos';
+  String get trandingMovie => 'trending/movie';
 }
 
 class ErrorKey {

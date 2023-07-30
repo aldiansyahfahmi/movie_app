@@ -125,4 +125,23 @@ class MovieRepositoryImpl implements MovieRepository {
       );
     }
   }
+
+  @override
+  Future<Either<FailureResponse, List<MovieDataEntity>>> getTrendingMovie(
+      {required String timeWindow}) async {
+    try {
+      final response =
+          await movieRemoteDataSource.getTrendingMovie(timeWindow: timeWindow);
+      return Right(movieMapper.mapMovieDataDtoToEntity(response.results!));
+    } on DioException catch (error) {
+      return Left(
+        FailureResponse(
+          errorMessage:
+              error.response?.data[AppConstants.errorKey.message]?.toString() ??
+                  error.response.toString(),
+          statusCode: error.response?.statusCode ?? 500,
+        ),
+      );
+    }
+  }
 }
