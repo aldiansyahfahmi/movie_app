@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
 class ErrorView extends StatelessWidget {
@@ -11,7 +10,7 @@ class ErrorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(AppConstants.app.defaultMargin),
+      padding: const EdgeInsets.all(16),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
