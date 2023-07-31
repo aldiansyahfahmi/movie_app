@@ -21,24 +21,6 @@
     <a target="_blank"><img src="assets/screenshoot/Movie App.png" >
 </p>
 
-<h2> Packages </h2>
-<ul>
-    <li>cached_network_image</li>
-    <li>Movie carousel_slider</li>
-    <li>dartz</li>
-    <li>dio</li>
-    <li>equatable</li>
-    <li>flutter_bloc</li>
-    <li>flutter_screenutil</li>
-    <li>flutter_staggered_grid_view</li>
-    <li>flutter_svg</li>
-    <li>get_it</li>
-    <li>intl</li>
-    <li>page_transition</li>
-    <li>shimmer</li>
-    <li>url_launcher</li>
-</ul>
-
 <h2> Project Structure </h2>
 <pre class="notranslate"><code>
 # Root Project
