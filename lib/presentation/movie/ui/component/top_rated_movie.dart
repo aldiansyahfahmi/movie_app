@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/presentation/movie/bloc/top_rated_movie_cubit/top_rated_movie_cubit.dart';
 import 'package:movie_app/presentation/movie/bloc/top_rated_movie_cubit/top_rated_movie_state.dart';
-import 'package:movie_app/presentation/movie/ui/component/list_movie.dart';
-import 'package:movie_app/shared_libraries/component/loading/movie_loading.dart';
+import 'package:movie_app/shared_libraries/component/movie/list_movie.dart';
+import 'package:movie_app/shared_libraries/component/shimmer/movies_shimmer.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 import 'package:movie_app/shared_libraries/utils/state/view_data_state.dart';
@@ -31,7 +31,7 @@ class TopRatedMovie extends StatelessWidget {
         BlocBuilder<TopRatedMovieCubit, TopRatedMovieState>(
           builder: (context, state) {
             return state.topRatedMovieState.observe(
-              onLoading: const MovieLoading(),
+              onLoading: const MoviesShimmer(),
               onError: (error) => ErrorView(
                 error: error!,
                 onTap: () =>

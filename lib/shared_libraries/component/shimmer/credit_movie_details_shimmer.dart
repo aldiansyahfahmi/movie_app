@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
-class CreditLoading extends StatelessWidget {
-  const CreditLoading({super.key});
+class CreditMovieDetailsShimmer extends StatelessWidget {
+  const CreditMovieDetailsShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,15 +8,15 @@ import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_deta
 import 'package:movie_app/shared_libraries/utils/navigation/router/movie_router.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
-class BannerMovie extends StatefulWidget {
+class MoviesBanner extends StatefulWidget {
   final List<MovieDataEntity> data;
-  const BannerMovie({super.key, required this.data});
+  const MoviesBanner({super.key, required this.data});
 
   @override
-  State<BannerMovie> createState() => _BannerMovieState();
+  State<MoviesBanner> createState() => _MoviesBannerState();
 }
 
-class _BannerMovieState extends State<BannerMovie> {
+class _MoviesBannerState extends State<MoviesBanner> {
   final MovieRouter movieRouter = MovieRouterImpl();
   int bannerIndex = 0;
   @override

@@ -4,8 +4,8 @@ import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dar
 import 'package:movie_app/shared_libraries/utils/resources/assets.gen.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
-class MovieLoading extends StatelessWidget {
-  const MovieLoading({
+class MoviesShimmer extends StatelessWidget {
+  const MoviesShimmer({
     super.key,
   });
 

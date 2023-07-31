@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:movie_app/presentation/credits/ui/component/credits_loading.dart';
+import 'package:movie_app/shared_libraries/component/shimmer/credits_shimmer.dart';
 import 'package:movie_app/presentation/movie_details/bloc/credits_cubit/credits_cubit.dart';
 import 'package:movie_app/presentation/movie_details/bloc/credits_cubit/credits_state.dart';
 import 'package:movie_app/shared_libraries/component/appbar/custom_appbar.dart';
@@ -44,7 +44,7 @@ class _CreditScreenState extends State<CreditScreen> {
               child: BlocBuilder<CreditsCubit, CreditsState>(
                 builder: (context, state) {
                   return state.creditsState.observe(
-                    onLoading: const CreditsLoading(),
+                    onLoading: const CreditsShimmer(),
                     onError: (error) => ErrorView(
                       error: error!,
                       onTap: () => getCredits(),

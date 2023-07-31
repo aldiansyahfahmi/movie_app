@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/presentation/movie/bloc/trending_movie_cubit/trending_movie_cubit.dart';
 import 'package:movie_app/presentation/movie/bloc/trending_movie_cubit/trending_movie_state.dart';
-import 'package:movie_app/presentation/movie/ui/component/list_movie.dart';
-import 'package:movie_app/shared_libraries/component/loading/movie_loading.dart';
+import 'package:movie_app/shared_libraries/component/movie/list_movie.dart';
+import 'package:movie_app/shared_libraries/component/shimmer/movies_shimmer.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
@@ -100,7 +100,7 @@ class _TrendingMovieState extends State<TrendingMovie>
         BlocBuilder<TrendingMovieCubit, TrendingMovieState>(
           builder: (context, state) {
             return state.trendingMovieState.observe(
-              onLoading: const MovieLoading(),
+              onLoading: const MoviesShimmer(),
               onError: (error) => ErrorView(
                 error: error!,
                 onTap: () => context

@@ -9,13 +9,13 @@ import 'package:movie_app/presentation/movie_details/bloc/videos_cubit/videos_cu
 import 'package:movie_app/presentation/movie_details/bloc/videos_cubit/videos_state.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/backdrop.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/credits.dart';
-import 'package:movie_app/presentation/movie_details/ui/component/genres.dart';
-import 'package:movie_app/presentation/movie_details/ui/component/loading/credit_loading.dart';
-import 'package:movie_app/presentation/movie_details/ui/component/loading/detail_loading.dart';
-import 'package:movie_app/presentation/movie_details/ui/component/loading/video_loading.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/poster.dart';
+import 'package:movie_app/presentation/movie_details/ui/component/storline.dart';
 import 'package:movie_app/presentation/movie_details/ui/component/videos.dart';
 import 'package:movie_app/shared_libraries/component/appbar/custom_appbar.dart';
+import 'package:movie_app/shared_libraries/component/shimmer/credit_movie_details_shimmer.dart';
+import 'package:movie_app/shared_libraries/component/shimmer/movie_details_shimmer.dart';
+import 'package:movie_app/shared_libraries/component/shimmer/video_shimmer.dart';
 import 'package:movie_app/shared_libraries/component/view/error_view.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
@@ -79,7 +79,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
                   builder: (context, state) {
                     return state.movieDetailsState.observe(
-                      onLoading: const DetailLoading(),
+                      onLoading: const MovieDetailsShimmer(),
                       onError: (error) => ErrorView(
                         error: error!,
                         onTap: () => getMovieDetails(),
@@ -92,37 +92,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               Poster(movie: movie),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Genres(movie: movie),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                Text(
-                                  'Storyline',
-                                  style: TextStyle(
-                                    color: ColorName.white,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                Text(
-                                  movie.overview,
-                                  style: TextStyle(
-                                    color: ColorName.white.withOpacity(0.80),
-                                    fontSize: 14.sp,
-                                    height: 1.5,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          Storyline(movie: movie),
                         ],
                       ),
                     );
@@ -136,7 +106,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       BlocBuilder<VideosCubit, VideosState>(
                         builder: (context, state) {
                           return state.videosState.observe(
-                            onLoading: const VideoLoading(),
+                            onLoading: const VideoShimmer(),
                             onError: (error) => ErrorView(
                               error: error!,
                               onTap: () => getVideos(),
@@ -153,7 +123,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       BlocBuilder<CreditsCubit, CreditsState>(
                         builder: (context, state) {
                           return state.creditsState.observe(
-                            onLoading: const CreditLoading(),
+                            onLoading: const CreditMovieDetailsShimmer(),
                             onError: (error) => ErrorView(
                               error: error!,
                               onTap: () => getCredits(),

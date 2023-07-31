@@ -4,8 +4,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
-class CreditsLoading extends StatelessWidget {
-  const CreditsLoading({super.key});
+class CreditsShimmer extends StatelessWidget {
+  const CreditsShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {

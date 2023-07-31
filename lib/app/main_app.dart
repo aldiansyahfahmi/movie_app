@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/presentation/credits/ui/credits_screen.dart';
+import 'package:movie_app/presentation/movie_details/ui/credits_screen.dart';
 import 'package:movie_app/presentation/movie/bloc/trending_movie_cubit/trending_movie_cubit.dart';
 import 'package:movie_app/presentation/movie_details/bloc/credits_cubit/credits_cubit.dart';
 import 'package:movie_app/presentation/movie_details/bloc/movie_details_cubit/movie_details_cubit.dart';
