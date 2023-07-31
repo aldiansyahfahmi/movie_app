@@ -4,11 +4,6 @@
     </a>
 </p>
 <br>
-<br>
-<p align="center">
-    Develop with <a href="https://flutter.dev" target="_blank">Flutter</a>, by <a href="https://aldev.tempatkoding.com" target="_blank">Aldiansyah Fahmi</a>
-</p>
-<br>
 
 <h2> Features </h2>
 <ul>
