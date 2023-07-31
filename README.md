@@ -1,16 +1,15 @@
-# movie_app
+<p>
+    <p href="https://flutter.dev" target="_blank" align="center">
+        <img align="middle" src="https://camo.githubusercontent.com/ac6ddc680bd6541f36ce4659b4bac7390e75d91a8016691c45cb28ccd4002fdc/68747470733a2f2f73746f726167652e676f6f676c65617069732e636f6d2f636d732d73746f726167652d6275636b65742f36653139666565366234376233366361363133662e706e67" width="400">
+</p>
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+</p>
+<br>
+<br>
+<p align="center">
+    Develop with <a href="https://flutter.dev" target="_blank">Flutter Framework</a>, by <a href="https://aldev.tempatkoding.com" target="_blank">Aldiansyah Fahmi</a>
+</p>
+<br>
+<p>
+    <a target="_blank"><img src="assets/screenshoot/Movie App.png" >
+</p>
