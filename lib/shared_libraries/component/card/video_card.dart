@@ -42,9 +42,9 @@ class VideoCard extends StatelessWidget {
                   ),
                 ),
                 errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
+                  Icons.image,
                   color: ColorName.white,
-                  size: 80,
+                  size: 50,
                 ),
               ),
             ),

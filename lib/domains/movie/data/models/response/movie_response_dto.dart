@@ -2,6 +2,7 @@ import 'package:movie_app/domains/movie/data/models/response/genre_response_dto.
 import 'package:movie_app/domains/movie/data/models/response/production_company_response_dto.dart';
 import 'package:movie_app/domains/movie/data/models/response/production_country_response_dto.dart';
 import 'package:movie_app/domains/movie/data/models/response/spoken_language_response_dto.dart';
+import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 
 class MovieDataDto {
   final bool? adult;
@@ -60,7 +61,9 @@ class MovieDataDto {
 
   factory MovieDataDto.fromJson(Map<String, dynamic> json) => MovieDataDto(
         adult: json["adult"],
-        backdropPath: json["backdrop_path"],
+        backdropPath: json["backdrop_path"] == null
+            ? null
+            : '${AppConstants.app.backdropImageUrl}/${json["backdrop_path"]}',
         belongsToCollection: json["belongs_to_collection"],
         budget: json["budget"],
         genres: json["genres"] == null
@@ -74,7 +77,9 @@ class MovieDataDto {
         originalTitle: json["original_title"],
         overview: json["overview"],
         popularity: json["popularity"]?.toDouble(),
-        posterPath: json["poster_path"],
+        posterPath: json["poster_path"] == null
+            ? null
+            : '${AppConstants.app.posterImageUrl}/${json["poster_path"]}',
         productionCompanies: json["production_companies"] == null
             ? []
             : List<ProductionCompanyDto>.from(json["production_companies"]!

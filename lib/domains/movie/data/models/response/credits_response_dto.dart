@@ -1,3 +1,5 @@
+import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
+
 class CreditsDto {
   final int? id;
   final List<CreditsDataDto>? cast;
@@ -63,7 +65,9 @@ class CreditsDataDto {
         name: json["name"],
         originalName: json["original_name"],
         popularity: json["popularity"]?.toDouble(),
-        profilePath: json["profile_path"],
+        profilePath: json["profile_path"] == null
+            ? null
+            : '${AppConstants.app.posterImageUrl}/${json["profile_path"]}',
         castId: json["cast_id"],
         character: json["character"],
         creditId: json["credit_id"],

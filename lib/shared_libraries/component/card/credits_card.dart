@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/credits_response_entity.dart';
 import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dart';
-import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
 class CreditsCard extends StatelessWidget {
@@ -27,8 +26,7 @@ class CreditsCard extends StatelessWidget {
                     height: 150,
                     width: 100,
                     fit: BoxFit.cover,
-                    imageUrl:
-                        AppConstants.appApi.baseUrlImage + credit.profilePath,
+                    imageUrl: credit.profilePath,
                     placeholder: (context, url) => ShimmerLoading(
                       child: Container(
                         height: 150,
@@ -42,7 +40,7 @@ class CreditsCard extends StatelessWidget {
                     errorWidget: (context, url, error) => const Icon(
                       Icons.person,
                       color: ColorName.white,
-                      size: 80,
+                      size: 50,
                     ),
                   ),
                 )

@@ -18,6 +18,12 @@ class App {
 
   String get day => 'day';
   String get week => 'week';
+
+  String get imageUrl => 'https://www.themoviedb.org/t/p';
+  String get posterSize => 'w600_and_h900_bestv2';
+  String get backdropSize => 'w1066_and_h600_bestv2';
+  String get posterImageUrl => '$imageUrl/$posterSize';
+  String get backdropImageUrl => '$imageUrl/$backdropSize';
 }
 
 class CachedKey {
@@ -32,8 +38,6 @@ class AppApi {
   String get key => '9d1d0ba6ed07c430140ed34dd0684540';
   String get baseUrlDevelopment => 'https://api.themoviedb.org/3/';
   String get baseUrlProduction => 'https://api.themoviedb.org/3/';
-  String get baseUrlImage =>
-      'https://www.themoviedb.org/t/p/w600_and_h900_bestv2';
 
   String get movie => 'movie';
   String get topRatedMovie => '$movie/top_rated';

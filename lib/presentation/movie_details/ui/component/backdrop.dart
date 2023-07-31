@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/movie_response_entity.dart';
 import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dart';
-import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:movie_app/shared_libraries/utils/resources/colors.gen.dart';
 
 class Backdrop extends StatelessWidget {
@@ -33,7 +32,7 @@ class Backdrop extends StatelessWidget {
         width: double.infinity,
         height: 350.h,
         fit: BoxFit.cover,
-        imageUrl: AppConstants.appApi.baseUrlImage + movie.backdropPath,
+        imageUrl: movie.backdropPath,
         placeholder: (context, url) => ShimmerLoading(
           child: Container(
             width: double.infinity,

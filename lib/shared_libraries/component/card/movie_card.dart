@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/domains/movie/domain/entities/response/movie_response_entity.dart';
 import 'package:movie_app/shared_libraries/component/loading/shimmer_loading.dart';
-import 'package:movie_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/arguments/movie_details_argument.dart';
 import 'package:movie_app/shared_libraries/utils/navigation/router/movie_router.dart';
 import 'package:movie_app/shared_libraries/utils/resources/assets.gen.dart';
@@ -39,8 +38,7 @@ class MovieCard extends StatelessWidget {
                     height: 210,
                     width: 140,
                     fit: BoxFit.cover,
-                    imageUrl:
-                        AppConstants.appApi.baseUrlImage + movie.posterPath,
+                    imageUrl: movie.posterPath,
                     placeholder: (context, url) => ShimmerLoading(
                       child: Container(
                         height: 160.h,
@@ -51,8 +49,11 @@ class MovieCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
+                    errorWidget: (context, url, error) => const Icon(
+                      Icons.image,
+                      color: ColorName.white,
+                      size: 50,
+                    ),
                   ),
                   Container(
                     padding: const EdgeInsets.all(8),
