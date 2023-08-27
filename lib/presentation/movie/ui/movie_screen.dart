@@ -22,6 +22,27 @@ class MovieScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ColorName.black,
+        centerTitle: true,
+        title: Text(
+          'Movies',
+          style: TextStyle(
+            fontSize: 18.sp,
+            fontWeight: FontWeight.bold,
+            color: ColorName.white,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.light_mode,
+              color: ColorName.white,
+            ),
+          ),
+        ],
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           context.read<NowPlayingMovieCubit>().getNowPlayingMovie();
@@ -31,57 +52,40 @@ class MovieScreen extends StatelessWidget {
           context.read<UpcomingMovieCubit>().getUpcomingMovie();
           context.read<TopRatedMovieCubit>().getTopRatedMovie();
         },
-        child: SafeArea(
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-                    child: Text(
-                      'Movies',
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                        color: ColorName.white,
-                      ),
-                    ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BlocBuilder<NowPlayingMovieCubit, NowPlayingMovieState>(
+                builder: (context, state) {
+                  return state.nowPlayingMovieState.observe(
+                      onLoading: const BannerShimmer(),
+                      onError: (error) => ErrorView(
+                            error: error!,
+                            onTap: () => context
+                                .read<NowPlayingMovieCubit>()
+                                .getNowPlayingMovie(),
+                          ),
+                      (data) => MoviesBanner(data: data!));
+                },
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TrendingMovie(),
+                  SizedBox(
+                    height: 16.h,
                   ),
-                ),
-                BlocBuilder<NowPlayingMovieCubit, NowPlayingMovieState>(
-                  builder: (context, state) {
-                    return state.nowPlayingMovieState.observe(
-                        onLoading: const BannerShimmer(),
-                        onError: (error) => ErrorView(
-                              error: error!,
-                              onTap: () => context
-                                  .read<NowPlayingMovieCubit>()
-                                  .getNowPlayingMovie(),
-                            ),
-                        (data) => MoviesBanner(data: data!));
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const TrendingMovie(),
-                      SizedBox(
-                        height: 16.h,
-                      ),
-                      const UpcomingMovie(),
-                      SizedBox(
-                        height: 16.h,
-                      ),
-                      const TopRatedMovie(),
-                    ],
+                  const UpcomingMovie(),
+                  SizedBox(
+                    height: 16.h,
                   ),
-                )
-              ],
-            ),
+                  const TopRatedMovie(),
+                ],
+              )
+            ],
           ),
         ),
       ),
